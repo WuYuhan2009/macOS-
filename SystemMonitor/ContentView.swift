@@ -8,12 +8,43 @@ struct ContentView: View {
         VStack(spacing: 16) {
             summary
             HStack(spacing: 16) {
-                chartCard(title: "CPU 历史") {
-                    LineMarkSeries(points: viewModel.cpuHistory, color: .green)
+                VStack(alignment: .leading) {
+                    Text("CPU 历史").font(.headline)
+                    Chart {
+                        ForEach(viewModel.cpuHistory) { point in
+                            LineMark(
+                                x: .value("Time", point.time),
+                                y: .value("Value", point.value)
+                            )
+                            .interpolationMethod(.catmullRom)
+                            .foregroundStyle(.green)
+                        }
+                    }
+                    .chartYScale(domain: 0...1)
+                    .frame(height: 220)
                 }
-                chartCard(title: "内存压力历史") {
-                    LineMarkSeries(points: viewModel.memoryHistory, color: .blue)
+                .padding()
+                .background(.ultraThinMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+
+                VStack(alignment: .leading) {
+                    Text("内存压力历史").font(.headline)
+                    Chart {
+                        ForEach(viewModel.memoryHistory) { point in
+                            LineMark(
+                                x: .value("Time", point.time),
+                                y: .value("Value", point.value)
+                            )
+                            .interpolationMethod(.catmullRom)
+                            .foregroundStyle(.blue)
+                        }
+                    }
+                    .chartYScale(domain: 0...1)
+                    .frame(height: 220)
                 }
+                .padding()
+                .background(.ultraThinMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             metrics
         }
@@ -46,35 +77,5 @@ struct ContentView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-    }
-
-    private func chartCard<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
-        VStack(alignment: .leading) {
-            Text(title).font(.headline)
-            Chart {
-                content()
-            }
-            .chartYScale(domain: 0...1)
-            .frame(height: 220)
-        }
-        .padding()
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-    }
-}
-
-struct LineMarkSeries: ChartContent {
-    let points: [MetricPoint]
-    let color: Color
-
-    var body: some ChartContent {
-        ForEach(points) { point in
-            LineMark(
-                x: .value("Time", point.time),
-                y: .value("Value", point.value)
-            )
-            .interpolationMethod(.catmullRom)
-            .foregroundStyle(color)
-        }
     }
 }

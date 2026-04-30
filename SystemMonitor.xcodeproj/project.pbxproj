@@ -99,6 +99,7 @@
 	F10000000000000000000001 /* Debug */ = {
 		isa = XCBuildConfiguration;
 		buildSettings = {
+			ALWAYS_SEARCH_USER_PATHS = NO;
 			CODE_SIGN_STYLE = Automatic;
 			CURRENT_PROJECT_VERSION = 1;
 			GENERATE_INFOPLIST_FILE = NO;
@@ -116,6 +117,7 @@
 	F10000000000000000000002 /* Release */ = {
 		isa = XCBuildConfiguration;
 		buildSettings = {
+			ALWAYS_SEARCH_USER_PATHS = NO;
 			CODE_SIGN_STYLE = Automatic;
 			CURRENT_PROJECT_VERSION = 1;
 			GENERATE_INFOPLIST_FILE = NO;
