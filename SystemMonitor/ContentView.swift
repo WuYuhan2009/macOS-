@@ -32,6 +32,12 @@ struct ContentView: View {
 
     @AppStorage("showMenuBar") private var showMenuBar = true
 
+    @AppStorage("showCPUChart") private var showCPUChart = true
+    @AppStorage("showMemoryChart") private var showMemoryChart = true
+    @AppStorage("showDiskDetails") private var showDiskDetails = true
+    @AppStorage("showNetworkDetails") private var showNetworkDetails = true
+    @AppStorage("professionalMode") private var professionalMode = true
+
     var body: some View {
         NavigationSplitView {
             List(selection: $selection) {
@@ -77,12 +83,16 @@ struct ContentView: View {
                     summaryCard("网络上行", Formatting.throughput(viewModel.latest.network.uploadBytesPerSecond), "arrow.up.circle")
                 }
                 HStack(spacing: 16) {
-                    chart(title: "CPU 历史", points: viewModel.cpuHistory, color: .green)
-                    chart(title: "内存压力历史", points: viewModel.memoryHistory, color: .blue)
+                    if showCPUChart { chart(title: "CPU 历史", points: viewModel.cpuHistory, color: .green) }
+                    if showMemoryChart { chart(title: "内存压力历史", points: viewModel.memoryHistory, color: .blue) }
                 }
                 GroupBox("当前采样") {
                     VStack(spacing: 8) {
                         detailRow("更新时间", DateFormatter.localizedString(from: viewModel.latest.timestamp, dateStyle: .none, timeStyle: .medium))
+                    if showNetworkDetails {
+                        detailRow("下载历史点", "\(viewModel.netDownHistory.count)")
+                        detailRow("上传历史点", "\(viewModel.netUpHistory.count)")
+                    }
                         detailRow("CPU 核心数", "\(viewModel.latest.cpu.coreUsages.count)")
                         detailRow("内存使用", "\(Formatting.bytes(Double(viewModel.latest.memory.usedBytes))) / \(Formatting.bytes(Double(viewModel.latest.memory.totalBytes)))")
                     }
@@ -142,7 +152,12 @@ struct ContentView: View {
                     detailRow("读取速率", Formatting.throughput(viewModel.latest.disk.readBytesPerSecond))
                     detailRow("写入速率", Formatting.throughput(viewModel.latest.disk.writeBytesPerSecond))
                     detailRow("总吞吐", Formatting.throughput(viewModel.latest.disk.readBytesPerSecond + viewModel.latest.disk.writeBytesPerSecond))
+                    if showDiskDetails {
+                        detailRow("读取历史点", "\(viewModel.diskReadHistory.count)")
+                        detailRow("写入历史点", "\(viewModel.diskWriteHistory.count)")
+                    }
                 }
+            }
             }
             Spacer()
         }
@@ -157,7 +172,12 @@ struct ContentView: View {
                     detailRow("上传", Formatting.throughput(viewModel.latest.network.uploadBytesPerSecond))
                     detailRow("总流量", Formatting.throughput(viewModel.latest.network.downloadBytesPerSecond + viewModel.latest.network.uploadBytesPerSecond))
                     detailRow("更新时间", DateFormatter.localizedString(from: viewModel.latest.timestamp, dateStyle: .none, timeStyle: .medium))
+                    if showNetworkDetails {
+                        detailRow("下载历史点", "\(viewModel.netDownHistory.count)")
+                        detailRow("上传历史点", "\(viewModel.netUpHistory.count)")
+                    }
                 }
+            }
             }
             Spacer()
         }
@@ -172,6 +192,7 @@ struct ContentView: View {
                     detailRow("充电状态", viewModel.latest.battery.isCharging.map { $0 ? "充电中" : "未充电" } ?? "N/A")
                 }
             }
+            if professionalMode {
             GroupBox("温度") {
                 VStack(spacing: 8) {
                     detailRow("温度", viewModel.latest.temperature.celsius.map { String(format: "%.1f ℃", $0) } ?? "N/A")
@@ -179,6 +200,7 @@ struct ContentView: View {
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
+            }
             }
             Spacer()
         }
