@@ -18,14 +18,11 @@ final class MemoryService {
         }
 
         let pageSize = UInt64(vm_kernel_page_size)
-        let free = UInt64(stats.free_count) * pageSize
         let active = UInt64(stats.active_count) * pageSize
-        let inactive = UInt64(stats.inactive_count) * pageSize
         let wired = UInt64(stats.wire_count) * pageSize
         let compressed = UInt64(stats.compressor_page_count) * pageSize
-
-        let used = active + inactive + wired + compressed
-        let pressure = total > 0 ? Double(total - free) / Double(total) : 0
+        let used = active + wired + compressed
+        let pressure = total > 0 ? Double(used) / Double(total) : 0
         return MemoryMetrics(usedBytes: used, totalBytes: total, pressure: max(0, min(1, pressure)))
     }
 }

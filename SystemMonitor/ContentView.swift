@@ -8,6 +8,7 @@ private enum SidebarSection: String, CaseIterable, Identifiable, Hashable {
     case disk = "磁盘"
     case network = "网络"
     case battery = "电池与温度"
+    case settings = "设置"
 
     var id: String { rawValue }
 
@@ -19,6 +20,7 @@ private enum SidebarSection: String, CaseIterable, Identifiable, Hashable {
         case .disk: return "internaldrive"
         case .network: return "network"
         case .battery: return "battery.100"
+        case .settings: return "gearshape"
         }
     }
 }
@@ -26,6 +28,9 @@ private enum SidebarSection: String, CaseIterable, Identifiable, Hashable {
 struct ContentView: View {
     @ObservedObject var viewModel: SystemMetricsViewModel
     @State private var selection: SidebarSection? = .overview
+
+
+    @AppStorage("showMenuBar") private var showMenuBar = true
 
     var body: some View {
         NavigationSplitView {
@@ -57,6 +62,7 @@ struct ContentView: View {
         case .disk: diskPage
         case .network: networkPage
         case .battery: batteryPage
+        case .settings: settingsPage
         }
     }
 
@@ -176,6 +182,25 @@ struct ContentView: View {
             }
             Spacer()
         }
+    }
+
+
+    private var settingsPage: some View {
+        Form {
+            Section("采样设置") {
+                Slider(value: $viewModel.refreshInterval, in: 0.5...3.0, step: 0.5)
+                Text("刷新间隔: \(String(format: "%.1f", viewModel.refreshInterval)) 秒")
+                Stepper("历史点数: \(viewModel.historyLimit)", value: $viewModel.historyLimit, in: 30...600, step: 30)
+            }
+            Section("显示设置") {
+                Toggle("显示菜单栏监视器", isOn: $showMenuBar)
+            }
+            Section("说明") {
+                Text("磁盘 I/O 基于系统公开计数器估算，受系统版本影响可能存在偏差。")
+                Text("温度数据在部分机型不可用时显示 N/A。")
+            }
+        }
+        .frame(maxWidth: 560)
     }
 
     private func chart(title: String, points: [MetricPoint], color: Color) -> some View {
