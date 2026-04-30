@@ -15,8 +15,8 @@ struct SystemMonitorApp: App {
             SettingsPanel(viewModel: viewModel)
         }
 
-        if showMenuBar {
-            MenuBarExtra {
+        MenuBarExtra("SystemMonitor", systemImage: "waveform.path.ecg") {
+            if showMenuBar {
                 VStack(alignment: .leading, spacing: 8) {
                     Label("CPU: \(Formatting.percentage(viewModel.latest.cpu.totalUsage))", systemImage: "cpu")
                     Label("内存: \(Formatting.percentage(viewModel.latest.memory.pressure))", systemImage: "memorychip")
@@ -29,8 +29,15 @@ struct SystemMonitorApp: App {
                 }
                 .padding(10)
                 .frame(width: 300)
-            } label: {
-                Label("SystemMonitor", systemImage: "waveform.path.ecg")
+            } else {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("菜单栏监视器已关闭")
+                    Text("可在设置中重新开启。")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .padding(10)
+                .frame(width: 220)
             }
         }
     }
@@ -48,7 +55,7 @@ private struct SettingsPanel: View {
                 Stepper("历史长度: \(viewModel.historyLimit) 点", value: $viewModel.historyLimit, in: 30...600, step: 30)
             }
             Section("显示") {
-                Toggle("显示菜单栏监视器", isOn: $showMenuBar)
+                Toggle("显示菜单栏监视器详情", isOn: $showMenuBar)
             }
         }
         .padding()
