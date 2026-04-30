@@ -158,7 +158,6 @@ struct ContentView: View {
                     }
                 }
             }
-            }
             Spacer()
         }
     }
@@ -177,7 +176,6 @@ struct ContentView: View {
                         detailRow("上传历史点", "\(viewModel.netUpHistory.count)")
                     }
                 }
-            }
             }
             Spacer()
         }
