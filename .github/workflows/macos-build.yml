@@ -1,0 +1,35 @@
+name: macOS Build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Build Release
+        run: |
+          xcodebuild -project SystemMonitor.xcodeproj \
+            -scheme SystemMonitor \
+            -configuration Release \
+            -derivedDataPath build \
+            build
+
+      - name: Package .app
+        run: |
+          mkdir -p artifacts
+          cp -R build/Build/Products/Release/SystemMonitor.app artifacts/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SystemMonitor-app
+          path: artifacts/SystemMonitor.app

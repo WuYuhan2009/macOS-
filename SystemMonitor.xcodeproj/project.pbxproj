@@ -1,0 +1,82 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+	A1 /* SystemMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1; };
+	A2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2; };
+	A3 /* SystemMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3; };
+	A4 /* CPUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4; };
+	A5 /* MemoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5; };
+	A6 /* DiskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6; };
+	A7 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7; };
+	A8 /* BatteryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8; };
+	A9 /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9; };
+	AA /* SystemMetricsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+	B0 = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = SystemMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+	B1 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMonitorApp.swift; sourceTree = "<group>"; };
+	B2 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+	B3 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMetrics.swift; sourceTree = "<group>"; };
+	B4 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPUService.swift; sourceTree = "<group>"; };
+	B5 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryService.swift; sourceTree = "<group>"; };
+	B6 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskService.swift; sourceTree = "<group>"; };
+	B7 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+	B8 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryService.swift; sourceTree = "<group>"; };
+	B9 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
+	BA = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMetricsViewModel.swift; sourceTree = "<group>"; };
+	BB = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+	C0 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+	D0 = {isa = PBXGroup; children = (D1, D2); sourceTree = "<group>"; };
+	D1 = {isa = PBXGroup; children = (E0, E1, E2, E3, E4, E5, E6); path = SystemMonitor; sourceTree = "<group>"; };
+	D2 = {isa = PBXGroup; children = (B0); name = Products; sourceTree = "<group>"; };
+	E0 = {isa = PBXGroup; children = (B1, B2, BB); sourceTree = "<group>"; };
+	E1 = {isa = PBXGroup; children = (B3); path = Models; sourceTree = "<group>"; };
+	E2 = {isa = PBXGroup; children = (BA); path = Views; sourceTree = "<group>"; };
+	E3 = {isa = PBXGroup; children = (B4, B5, B6, B7, B8); path = Services; sourceTree = "<group>"; };
+	E4 = {isa = PBXGroup; children = (B9); path = Utils; sourceTree = "<group>"; };
+	E5 = {isa = PBXGroup; children = (); path = Resources; sourceTree = "<group>"; };
+	E6 = {isa = PBXGroup; children = (); path = Supporting; sourceTree = "<group>"; };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+	F0 = {isa = PBXNativeTarget; buildConfigurationList = F3; buildPhases = (C1, C0, C2); buildRules = (); dependencies = (); name = SystemMonitor; productName = SystemMonitor; productReference = B0; productType = "com.apple.product-type.application"; };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+	F1 = {isa = PBXProject; attributes = {LastSwiftUpdateCheck = 1600; LastUpgradeCheck = 1600;}; buildConfigurationList = F2; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = (en, Base); mainGroup = D0; productRefGroup = D2; projectDirPath = ""; projectRoot = ""; targets = (F0); };
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+	C1 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+	C2 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A1,A2,A3,A4,A5,A6,A7,A8,A9,AA); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+	G0 = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = SystemMonitor/Info.plist; LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks",); MACOSX_DEPLOYMENT_TARGET = 13.0; MARKETING_VERSION = 1.0; PRODUCT_BUNDLE_IDENTIFIER = com.example.SystemMonitor; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 5.10;}; name = Debug; };
+	G1 = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = SystemMonitor/Info.plist; LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks",); MACOSX_DEPLOYMENT_TARGET = 13.0; MARKETING_VERSION = 1.0; PRODUCT_BUNDLE_IDENTIFIER = com.example.SystemMonitor; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 5.10;}; name = Release; };
+	G2 = {isa = XCBuildConfiguration; buildSettings = {}; name = Debug; };
+	G3 = {isa = XCBuildConfiguration; buildSettings = {}; name = Release; };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+	F2 = {isa = XCConfigurationList; buildConfigurations = (G2, G3); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+	F3 = {isa = XCConfigurationList; buildConfigurations = (G0, G1); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+	};
+	rootObject = F1;
+}
