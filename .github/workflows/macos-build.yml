@@ -1,0 +1,39 @@
+name: macOS Build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Show Xcode Version
+        run: xcodebuild -version
+
+      - name: Build Release
+        run: |
+          xcodebuild -project SystemMonitor.xcodeproj \
+            -scheme SystemMonitor \
+            -configuration Release \
+            -destination 'platform=macOS' \
+            -derivedDataPath build \
+            clean build
+
+      - name: Package .app
+        run: |
+          mkdir -p artifacts
+          cp -R build/Build/Products/Release/SystemMonitor.app artifacts/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SystemMonitor-app
+          path: artifacts/SystemMonitor.app
